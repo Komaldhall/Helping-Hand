@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+
+    <title>Helping Hand</title>
+    <style>
+        .wrapper{
+            background-image:url("http://highlandsumc.com/wp-content/uploads/2014/10/Helping-Hands.jpg");
+            background-repeat: no-repeat;
+            background-position: center; 
+        }
+        .error{
+            color:red;
+            font-style: italic;
+        }
+        .mid{
+            background-color: white;
+            width:90%;
+            margin-top:5%;
+            text-align: center;
+            opacity: 0.9;
+        }
+        .content{
+            margin-top:3%;
+        }
+        .log{
+            margin-left:25%;
+        }
+        .colu{
+            color:white;
+        }
+        .row{
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+        .dif{
+            margin-top:8px;
+        }
+        
+    </style>
+</head>
+<body class="wrapper">
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10 mid">
+            <div class="content row">
+                <div class="col-sm-4">
+                    <h1>Helping Hand</h1>
+                </div>
+                <div class="col-sm-5"></div>
+                <div class="col-sm-3 dif">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <a href="/addJob" class="btn btn-secondary">New</a>
+                        <a href="/logout" class="btn btn-warning">Logout</a>
+                    </div>
+                </div>    
+            </div>
+            <hr>
+            <br>
+            <h4>Welcome {{user.first_name |title}} {{user.last_name|title}}</h4>
+            
+            <br>
+            <div class="row">  
+                <div class="col-sm-6">
+                    <p>Jobs waiting to be done.</p>
+                    <table class="table table-hover">
+                        <tr class="bg-primary colu">
+                            <th>Job</th>
+                            <th>Location</th>
+                            <th>Action</th>
+                        </tr>
+                    {%for j in job%}
+                        {%if not j.job_owner_id%}
+                        <tr>
+                            <td>{{j.name|title}}</td>
+                            <td>{{j.location|title}}</td>
+                            <td><a href="view/{{j.id}}">View</a> |
+                                    <a href="record/{{j.id}}/{{user.id}}">Add</a>
+                            {% if user.id == j.users.id %}
+                                | <a href="edit/{{j.id}}">Edit</a> |
+                                <a href="destroy/{{j.id}}">Remove</a></td>
+                            {%endif%}
+                        </tr>
+                        {%endif%}
+                    {%endfor%}    
+                    </table>
+                </div>
+                <div class="col-sm-6">
+                    <p>Jobs in your bucket.</p>
+                    <table class="table table-hover">
+                        <tr class="bg-success colu">
+                            <th>My Jobs</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    {%for j in job%} 
+                    {%if j.job_owner_id == user.id%}
+                        <tr>
+                            <td>{{j.name|title}}</td>
+                            <td>{{j.location|title}}</td>
+                            <td><a href="view/{{j.id}}" >View</a> |
+                                <a href="destroy/{{j.id}}">Done</a></td>
+                        </tr>
+                    {%endif%}
+                    {%endfor%}    
+                    </table>
+                </div>
+                
+            </div>
+            <br><br>
+        </div>
+    </div> 
+    
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+    <title>Helping Hand</title>
+    <style>
+        .wrapper{
+            background-image:url("http://highlandsumc.com/wp-content/uploads/2014/10/Helping-Hands.jpg");
+            background-repeat: no-repeat;
+            background-position: center; 
+        }
+        .error{
+            color:red;
+        }
+        .mid{
+            background-color: white;
+            /* height:450px; */
+            margin-top:5%;
+            text-align: center;
+            opacity: 0.9;
+        }
+        .content{
+            margin-top:3%;
+        }
+        .log{
+            margin-left:35%;
+        }
+        .end{
+            text-align: center;
+        }
+        .row{
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+        
+        
+    </style>
+</head>
+<body class="wrapper">
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6 mid">
+            <div class="content">
+                <h1>Helping Hand</h1>
+                <p>A place to share work and better understand the world.</p>
+                <hr>
+                <h4>Login</h4>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="error">*{{ message }}</div>
+                {% endfor %}
+                {% endif %}
+                <br>
+                <form action="login" method='POST'>
+                    {% csrf_token %} 
+                    <div class="log">
+                        <div class="form-row"> 
+                            <div class="form-group col-md-6">
+                                <input type="email" name="emaill" class="form-control" placeholder="Email" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <input type="password" name="passwordl" class="form-control" placeholder="Password" required>
+                            </div>
+                        </div> 
+                    </div>                                             
+                    <button class="btn btn-info" style="margin-bottom: 10px">Sign In</button> <br>
+                    <a href="/register">New here? Create a free account!</a> 
+                    <hr>
+                    <div class="end">Contributed by Komal Dhall</div>
+                    <br>
+                </form>
+            </div>
+                
+            </div>
+        <div class="col-sm-3"></div>
+    </div>
+        
+    
+    
+</body>
+</html>
